@@ -20,6 +20,8 @@ public class PlayerFallingState : PlayerBaseState
     public override void Enter()
     {
         stateMachine.InputReader.JumpEvent += OnJumps;
+        stateMachine.ForceReceiver.WallJUMP += OnWallJump;
+        
         
         stateMachine.Animator.CrossFadeInFixedTime(FallIdleHash,CrossFadeDuration);
 
@@ -58,12 +60,21 @@ public class PlayerFallingState : PlayerBaseState
     {
        
        stateMachine.InputReader.JumpEvent -= OnJumps;
+        stateMachine.InputReader.DashEvent -= OnDash;
+         stateMachine.ForceReceiver.WallJUMP -= OnWallJump;
+        
     }
 
     private void OnJumps()
     {
-         stateMachine.InputReader.DashEvent -= OnDash;
+      
+       
         stateMachine.SwitchState(new PlayerDoubleJumpState(stateMachine));
+    }
+
+
+    private void OnWallJump(){
+        stateMachine.SwitchState(new PlayerJumpingState(stateMachine));
     }
 
    

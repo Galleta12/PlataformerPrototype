@@ -11,7 +11,7 @@ public class ForceReceiver : MonoBehaviour
    [field: SerializeField] private InputReader InputReader;
 
 
-    public float verticalVelocity;
+    private float verticalVelocity;
 
    
      // this will return a vector (0,vertical velovity,0)
@@ -19,9 +19,11 @@ public class ForceReceiver : MonoBehaviour
 
     private Vector3 thisNormal;
 
-    public float gravity = -9.8f;
+    private Vector3 thisNormalDirection;
 
-    public float groundGravity = -.05f;
+    private float gravity = -9.8f;
+
+   private float groundGravity = -.05f;
 
 
     
@@ -34,6 +36,9 @@ public class ForceReceiver : MonoBehaviour
     private float maxJumpTime = 0.5f;
 
     private bool isSlope = false;
+
+
+    public event Action WallJUMP;
 
     
 
@@ -53,7 +58,9 @@ public class ForceReceiver : MonoBehaviour
               }
               
               verticalVelocity= groundGravity  * Time.deltaTime;
-        }else{
+        }
+        
+        else{
                 verticalVelocity += gravity * Time.deltaTime;
            
         }
@@ -93,6 +100,8 @@ public class ForceReceiver : MonoBehaviour
     }
 
 
+    
+
 
 
     private void OnControllerColliderHit(ControllerColliderHit hit) {
@@ -108,15 +117,21 @@ public class ForceReceiver : MonoBehaviour
 
         if(!controller.isGrounded && hit.normal.y < 0.1f){
            
-           if(InputReader.isJumping){
-               //Debug.DrawRay(hit.point,hit.normal, Color.red,1.25f);
+       
+              //Debug.DrawRay(hit.point,hit.normal, Color.red,1.25f);
              
              verticalVelocity = intialJumpVelocity;
              thisNormal = hit.normal * 4.0f;
-           }
+             thisNormalDirection = hit.normal;
+             WallJUMP?.Invoke();
+             transform.rotation =  Quaternion.LookRotation(hit.normal) ;
+         
+              
+             
+             
               
            }
-       
+
 
         
     }

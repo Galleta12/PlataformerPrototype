@@ -52,11 +52,7 @@ public class PlayerJumpingState : PlayerBaseState
             stateMachine.SwitchState(new PlayerFallingState(stateMachine));
             return;
         }else if(!stateMachine.Controller.isGrounded){
-            
-            
-            
-            
-            
+                
             stateMachine.movement_input = CalculateMovement();
             
             Move(stateMachine.movement_input * stateMachine.JumpMoveSpeed, deltaTime);

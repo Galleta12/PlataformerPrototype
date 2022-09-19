@@ -5,6 +5,9 @@ using UnityEngine;
 
 public abstract class PlayerBaseState : State
 {
+  
+   
+   
    protected PlayerStateMachine stateMachine;
 
    
@@ -69,15 +72,23 @@ public abstract class PlayerBaseState : State
        camera_x.Normalize();
 
        return camera_z;
-    //float angleLook = Mathf.Atan2 (camera_x.x, camera_z.z)* Mathf.Rad2Deg;
+    
+    }
 
-    //Debug.DrawRay(stateMachine.transform.position, camera_y * 10, Color.green);
 
-    //Debug.Log(camera_z);
 
-     //Debug.Log("This is the scale :" + camera_z * 10f);
-     
+        protected Vector3 LastLook(){
+      
+       Vector3 camera_z = stateMachine.MainCameraPlayer.forward;
+       Vector3 camera_x = stateMachine.MainCameraPlayer.right;
+       camera_z.y = 0f;
+       camera_x.y = 0f;
+       
+       camera_z.Normalize();
+       camera_x.Normalize();
 
+       return camera_z;
+    
     }
 
 
@@ -92,6 +103,9 @@ public abstract class PlayerBaseState : State
                 deltaTime * stateMachine.RotationDampSpeed);
     }
 
+
+
+   
 
     
    protected void OnJump()
@@ -109,6 +123,10 @@ public abstract class PlayerBaseState : State
        stateMachine.SwitchState(new PlayerDashState(stateMachine, stateMachine.movement_input));      
        
     }
+
+
+
+   
 
 
    

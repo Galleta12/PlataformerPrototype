@@ -44,9 +44,14 @@ public class PlayerNormalState : PlayerBaseState
         // if the movement value is 0
         // set the blend tree to 0, idle
         stateMachine.Animator.SetFloat(NormalBlendSpeedHash, 0 , AnimatorDampTime, deltaTime);
-        
         return;
-       }else if(!stateMachine.Controller.isGrounded){
+        
+       }
+       else if(stateMachine.InputReader.IsAttacking){
+        stateMachine.SwitchState(new PlayerAttackingState(stateMachine,0,LastLook()));
+        return;
+       }
+       else if(!stateMachine.Controller.isGrounded){
         stateMachine.SwitchState(new PlayerFallingState(stateMachine));
         return;
        }

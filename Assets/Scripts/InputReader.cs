@@ -12,7 +12,7 @@ public class InputReader : MonoBehaviour, Controls.IPlayerActions
     public Vector2 MovementValue {get; private set;}
 
    
-  
+    public bool IsAttacking {get; private set;}
 
      private Controls controls;
 
@@ -54,12 +54,14 @@ public class InputReader : MonoBehaviour, Controls.IPlayerActions
     public void OnJump(InputAction.CallbackContext context)
     {
          
-          isJumping = context.ReadValueAsButton();
            JumpEvent?.Invoke();
+
+           if(context.performed){
+            isJumping = true;
+           }else if(context.canceled){
+            isJumping = false;
+           }
           
-        
-       
-       
         
     }
 
@@ -67,5 +69,15 @@ public class InputReader : MonoBehaviour, Controls.IPlayerActions
     {
         if(!context.performed){return ;}
         DashEvent?.Invoke();
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if(context.performed){
+        IsAttacking = true;
+       }else if(context.canceled){
+        IsAttacking = false;
+       }
+    
     }
 }

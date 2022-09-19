@@ -6,9 +6,11 @@ public class RayCaster : MonoBehaviour
 {
     [SerializeField] private CharacterController controller; 
 
+    public RaycastHit hit;
+
 
     private void Update() {
-         RaycastHit hit;
+        
 
         Vector3 p1 = transform.position + controller.center;
         float distanceToObstacle = 0;

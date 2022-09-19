@@ -21,6 +21,9 @@ public class PlayerStateMachine : StateMachine
 [field: SerializeField] public float JumpMoveSpeed {get; private set; }
 
 
+
+
+
 [field: SerializeField] public float RotationDampSpeed {get; private set; }
 [field: SerializeField] public float DashTime {get; private set;}
 
@@ -28,8 +31,9 @@ public class PlayerStateMachine : StateMachine
 
 public Transform MainCameraPlayer {get; private set; }
 
- public float PreviousDashTime { get; private set; } = Mathf.NegativeInfinity;
+[field: SerializeField] public AttackData [] Attacks {get; private set;}
 
+[HideInInspector]
 public Vector3 movement_input;
 
 
@@ -52,16 +56,18 @@ private void Start(){
 // }
 
 
-private void OnControllerColliderHit(ControllerColliderHit hit) {
+// private void OnControllerColliderHit(ControllerColliderHit hit) {
 
-        if(!Controller.isGrounded && hit.normal.y < 0.1f){
+//         if(!Controller.isGrounded && hit.normal.y < 0.1f){
            
-           SwitchState(new PlayerWallJumpState(this));
-              
-           }
+//            Debug.DrawRay(hit.point,hit.normal, Color.red,1.25f);
+          
+//             Debug.Log(hit.normal);
+//                SwitchState(new PlayerWallJumpState(this, hit));
+//            }
        
         
-    }
+//     }
 
         
         
