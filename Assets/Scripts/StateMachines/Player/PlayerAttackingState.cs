@@ -12,6 +12,9 @@ public class PlayerAttackingState : PlayerBaseState
    private Vector3 currentMove;
 
    private Vector3 lastLookCamera;
+
+   private bool alreadyAppliedForce;
+   
     
     public PlayerAttackingState(PlayerStateMachine stateMachine, int attckIndx, Vector3 lastlook) : base(stateMachine)
     {
@@ -39,7 +42,17 @@ public class PlayerAttackingState : PlayerBaseState
 
         float normalizedTime = GetNormalizedTime(stateMachine.Animator);
 
+        
+        
+        
         if(normalizedTime < 1f){
+             
+             if(normalizedTime >= attack.ForceTime){
+                TryApplyForce();
+             }
+             
+             
+             
              if(stateMachine.InputReader.IsAttacking){
             ComboAttack(normalizedTime);
             this.lastLookCamera = LastLook();
@@ -62,6 +75,17 @@ public class PlayerAttackingState : PlayerBaseState
        
     }
 
+     
+     private void TryApplyForce(){
+
+        if(alreadyAppliedForce) {return;}
+        stateMachine.ForceReceiver.AddForce(this.lastLookCamera * attack.Force);
+
+        alreadyAppliedForce = true;
+
+     }
+     
+     
      private void ComboAttack(float normalizedTime)
     {
     //recursion is the index of the current animation

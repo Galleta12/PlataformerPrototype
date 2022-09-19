@@ -1503,24 +1503,24 @@ MonoBehaviour:
     <TransitionDuration>k__BackingField: 0.1
     <ComboStateIndex>k__BackingField: 1
     <ComboAttackTime>k__BackingField: 0.6
-    <ForceTime>k__BackingField: 0
-    <Force>k__BackingField: 0
+    <ForceTime>k__BackingField: 0.35
+    <Force>k__BackingField: 8
     <Damage>k__BackingField: 0
     <Knockback>k__BackingField: 0
   - <AnimationName>k__BackingField: Attack2
     <TransitionDuration>k__BackingField: 0.1
     <ComboStateIndex>k__BackingField: 2
     <ComboAttackTime>k__BackingField: 0.6
-    <ForceTime>k__BackingField: 0
-    <Force>k__BackingField: 0
+    <ForceTime>k__BackingField: 0.35
+    <Force>k__BackingField: 6
     <Damage>k__BackingField: 0
     <Knockback>k__BackingField: 0
   - <AnimationName>k__BackingField: Attack3
     <TransitionDuration>k__BackingField: 0.3
     <ComboStateIndex>k__BackingField: -1
     <ComboAttackTime>k__BackingField: 0.8
-    <ForceTime>k__BackingField: 0
-    <Force>k__BackingField: 0
+    <ForceTime>k__BackingField: 0.35
+    <Force>k__BackingField: 12
     <Damage>k__BackingField: 0
     <Knockback>k__BackingField: 0
   movement_input: {x: 0, y: 0, z: 0}
@@ -1570,6 +1570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 2980118954683767462}
+  drag: 0.3
   InputReader: {fileID: 5882061230518590448}
 --- !u!1 &6205232029574291843
 GameObject:

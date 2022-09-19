@@ -6,18 +6,24 @@ using UnityEngine;
 public class ForceReceiver : MonoBehaviour
 {
    
-   [SerializeField] private CharacterController controller; 
+   [SerializeField] private CharacterController controller;
+
+    [SerializeField] private float drag = 0.1f;
 
    [field: SerializeField] private InputReader InputReader;
 
 
     private float verticalVelocity;
 
+    private Vector3 dampingVelocity;
+
    
      // this will return a vector (0,vertical velovity,0)
-    public Vector3 Movement =>  thisNormal + (Vector3.up * verticalVelocity);
+    public Vector3 Movement =>  impact + thisNormal + (Vector3.up * verticalVelocity);
 
     private Vector3 thisNormal;
+
+    private Vector3 impact;
 
     private Vector3 thisNormalDirection;
 
@@ -64,8 +70,15 @@ public class ForceReceiver : MonoBehaviour
                 verticalVelocity += gravity * Time.deltaTime;
            
         }
+        // reduce impact until is 0
+        impact = Vector3.SmoothDamp(impact, Vector3.zero, ref dampingVelocity, drag);
 
    
+     }
+
+     public void AddForce(Vector3 force){
+       impact += force;
+
      }
 
 
